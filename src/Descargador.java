@@ -1,4 +1,16 @@
 
-public class Descargador {
+public class Descargador extends Thread{
+	
+	
+	public Descargador() {
+		
+	}
+	
+	@Override
+	public void run() {
+		
+		
+		
+	}
 
 }
