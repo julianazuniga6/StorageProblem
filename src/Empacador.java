@@ -13,7 +13,7 @@ public class Empacador extends Thread{
 		while(true){
 			
 			try {
-				sleep(1000);
+				sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
