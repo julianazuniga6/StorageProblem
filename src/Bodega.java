@@ -11,12 +11,21 @@ public class Bodega {
 	private boolean waitForItDescargadorT1;
 	private boolean waitForItDescargadorT2;
 
+	private Descargador des;
+	private Empacador emp;
+	
 	public Bodega() {
 		articulosT1 = 0;
 		articulosT2 = 0;
 		waitForItEmpacador = true;
 		waitForItDescargadorT1 = false;
 		waitForItDescargadorT2 = false;
+		
+		des = new Descargador(this);
+		emp = new Empacador(this);
+		
+		des.start();
+		emp.start();
 	}
 
 	public void descargarArticulo(int type) {
@@ -24,36 +33,49 @@ public class Bodega {
 		switch (type) {
 
 		case 1:
-
+			
 			while (waitForItDescargadorT1) {
 				
 			}			
 			articulosT1++;
-
+			System.out.println("Hay "+articulosT1+" tipo 1");
+			break;
 		case 2:
-			
+						
 			while (waitForItDescargadorT2) {
 				
 			}
 			articulosT2++;
+			System.out.println("Hay "+articulosT2+" tipo 2");
+			break;
 		}
 		
-		waitForItEmpacador = (articulosT1 < 3) && (articulosT2 < 4);
+		waitForItEmpacador = (articulosT1 < 3) || (articulosT2 < 4);
+		System.out.println("******** "+waitForItEmpacador+" ********");
 
 	}
 
 	public void crearPaquete() {
-
-		while (waitForItEmpacador) {
-
+		
+		System.err.println("CREANDO PAQUETE");
+		while (true) {
+			
+			if(!waitForItEmpacador){
+				break;
+			}
+			
 		}
+		System.err.println("PAQUETE CREADO!!");
 		
 		articulosT1-=3;
 		articulosT2-=4;
-		
 		waitForItDescargadorT1= articulosT1*ESPACIO_T1+articulosT2*ESPACIO_T2 +ESPACIO_T1 > CAPACIDAD;
 		waitForItDescargadorT2= articulosT1*ESPACIO_T1+articulosT2*ESPACIO_T2 +ESPACIO_T2 > CAPACIDAD;
 
 	}
 
+	public static void main(String[] args) {
+		Bodega	b = new Bodega();
+	}
+	
 }
